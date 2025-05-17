@@ -1,119 +1,48 @@
-import { db } from './config';
-import {
-  collection,
-  query,
-  addDoc,
-  where,
-  getDoc,
-  getDocs,
-  deleteDoc,
-  updateDoc,
-  limit,
-  orderBy,
-  doc
-} from "firebase/storage";
+import Firebase from './config';
 
-// Collection names
-export const COLLECTIONS = {
-  FAVORITES: 'favorites',
-};
+const db = Firebase.firestore();
+const favoritesRepository = db.collection('favorites');
 
-// Add a new document to a collection
-export const addDocument = async (collectionName, data) => {
-  try {
-    const docRef = await addDoc(collection(db, collectionName), {
+export const upsertFavorite = async (data) => {
+  data.id = String(data.id)
+
+  if (favoriteExists(data.id)) {
+    await favoritesRepository.doc(data.id).set(data, { merge: true });    
+  } else {
+    await favoritesRepository.add({
       ...data,
-      createdAt: new Date()
+      createdAt: Firebase.firestore.FieldValue.serverTimestamp(),
     });
-    return { id: docRef.id, ...data };
-  } catch (error) {
-    console.error('Error adding document:', error);
-    throw error;
+  }
+  
+  return data.id;
+};
+
+export const favoriteExists = async (id) => {
+  const externalId = String(id)
+
+  const doc = await favoritesRepository.doc(externalId).get();
+  return doc.exists;
+};
+
+export const getFavoriteById = async (id) => {
+  const externalId = String(id)
+
+  const doc = await favoritesRepository.doc(externalId).get();
+  return doc.exists ? { id: doc.id, ...doc.data() } : null;
+};
+
+export const getFavoriteByName = async (name) => {
+  const snapshot = await favoritesRepository.where('name', '==', name).get();
+  if (snapshot.empty) {
+    return null
+  } else {
+    const doc = snapshot.docs[0]
+    return { id: doc.id, ...doc.data() };
   }
 };
 
-// Get a document by ID
-export const getDocument = async (collectionName, docId) => {
-  try {
-    const docRef = doc(db, collectionName, docId);
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      return { id: docSnap.id, ...docSnap.data() };
-    } else {
-      return null;
-    }
-  } catch (error) {
-    console.error('Error getting document:', error);
-    throw error;
-  }
-};
-
-// Get all documents from a collection
-export const getDocuments = async (collectionName) => {
-  try {
-    const querySnapshot = await getDocs(collection(db, collectionName));
-    const documents = [];
-
-    querySnapshot.forEach((doc) => {
-      documents.push({ id: doc.id, ...doc.data() });
-    });
-
-    return documents;
-  } catch (error) {
-    console.error('Error getting documents:', error);
-    throw error;
-  }
-};
-
-// Update a document
-export const updateDocument = async (collectionName, docId, data) => {
-  try {
-    const docRef = doc(db, collectionName, docId);
-    await updateDoc(docRef, {
-      ...data,
-      updatedAt: new Date()
-    });
-    return { id: docId, ...data };
-  } catch (error) {
-    console.error('Error updating document:', error);
-    throw error;
-  }
-};
-
-// Query documents with filters
-export const queryDocuments = async (collectionName, filters = [], sortBy = null, limitTo = null) => {
-  try {
-    let q = collection(db, collectionName);
-
-    // Add filters
-    if (filters.length > 0) {
-      const queryConstraints = filters.map(filter => {
-        return where(filter.field, filter.operator, filter.value);
-      });
-      q = query(q, ...queryConstraints);
-    }
-
-    // Add sorting
-    if (sortBy) {
-      q = query(q, orderBy(sortBy.field, sortBy.direction || 'asc'));
-    }
-
-    // Add limit
-    if (limitTo) {
-      q = query(q, limit(limitTo));
-    }
-
-    const querySnapshot = await getDocs(q);
-    const documents = [];
-
-    querySnapshot.forEach((doc) => {
-      documents.push({ id: doc.id, ...doc.data() });
-    });
-
-    return documents;
-  } catch (error) {
-    console.error('Error querying documents:', error);
-    throw error;
-  }
+export const getAllFavorites = async () => {
+  const snapshot = await favoritesRepository.where('favorite', '==', true).get();
+  return snapshot.docs.map(doc => ({ id: doc.id, ...doc.data() }));
 };

@@ -1,9 +1,10 @@
 import { useState, useEffect, useCallback } from 'react';
-import { View, Text, FlatList, TouchableOpacity, Alert } from 'react-native';
+import { useFocusEffect } from '@react-navigation/native';
+import { View, Text, FlatList, Alert } from 'react-native';
 import styles from '../assets/css/style';
 import FlatListButton from '../components/FlatListButton';
 import Loading from '../components/Loading';
-import { queryDocuments, COLLECTIONS } from '../firebase/firestore';
+import { getAllFavorites } from '../firebase/firestore';
 
 const Favorites = ({ navigation }) => {
   const [favorites, setFavorites] = useState([]);
@@ -14,11 +15,7 @@ const Favorites = ({ navigation }) => {
     try {
       setLoading(true);
 
-      // Query pokemons where favorite is true
-      const favoritePokemons = await queryDocuments(
-        COLLECTIONS.FAVORITES,
-        [{ field: 'favorite', operator: '==', value: true }]
-      );
+      const favoritePokemons = await getAllFavorites()
 
       setFavorites(favoritePokemons);
     } catch (error) {
@@ -29,9 +26,9 @@ const Favorites = ({ navigation }) => {
     }
   }, []);
 
-  useEffect(() => {
+  useFocusEffect(useCallback(() => {    
     fetchFavorites();
-  }, [fetchFavorites]);
+  }, [fetchFavorites]));
 
   return (
     <View style={styles.container}>

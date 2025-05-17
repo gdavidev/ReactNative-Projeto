@@ -1,27 +1,24 @@
 import { useState, useEffect } from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, Alert } from 'react-native';
-import { addDocument, COLLECTIONS } from '../firebase/firestore';
+import { upsertFavorite, getFavoriteByName } from '../firebase/firestore';
+import Loading from '../components/Loading';
 
 const PokemonDetail = ({ route }) => {
   const { pokemon } = route.params; // Recebe o Pokémon da tela anterior
   const [details, setDetails] = useState(null);
-
-  // Função para buscar detalhes do Pokémon
-  const fetchPokemonDetails = async () => {
-    const response = await fetch(pokemon.url); // Usa a URL do Pokémon para pegar detalhes
-    const data = await response.json();
-    setDetails(data); // Atualiza os detalhes
-  };
+  const [loading, setLoading] = useState(true);
+  const [favorite, setFavorite] = useState(false);
 
   // Função para marcar/desmarcar como favorito
   const toggleFavorite = async () => {
     try {
-      if (!details || !details.id) return;
+      if (!details) 
+        return;
 
       const newFavoriteStatus = !favorite;
       setFavorite(newFavoriteStatus);
 
-      await addDocument(COLLECTIONS.FAVORITES, {
+      await upsertFavorite({
         ...details,
         favorite: newFavoriteStatus
       });
@@ -40,8 +37,26 @@ const PokemonDetail = ({ route }) => {
   };
 
   useEffect(() => {
-    fetchPokemonDetails();
-  }, []);
+    setLoading(true)
+
+    getFavoriteByName(pokemon.name)
+      .then(res => {
+        if (res === null) {
+          // Usa a URL do Pokémon para pegar detalhes
+          fetch(pokemon.url)
+            .then(res => res.json())
+            .then(res => {
+              setDetails(res)
+              setFavorite(false)
+              setLoading(false)
+            })
+        } else {
+          setDetails(res)
+          setFavorite(res.favorite)
+          setLoading(false)
+        }
+      });
+  }, [setDetails, pokemon.name, pokemon.url]);
 
   return (
     <View style={styles.container}>
@@ -73,72 +88,21 @@ const PokemonDetail = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  scrollContainer: {
-    flexGrow: 1,
-    paddingBottom: 20,
+  title: {
+    color: '#FFF',
+    fontSize: 24,
+    fontWeight: 'bold',
+    marginBottom: 20,
   },
   container: {
     flex: 1,
     alignItems: 'center',
     padding: 15,
   },
-  name: {
-    fontSize: 30,
-    fontWeight: 'bold',
-    textTransform: 'capitalize',
-    marginBottom: 10,
-  },
   image: {
     width: 200,
     height: 200,
     marginBottom: 20,
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  infoSection: {
-    width: '100%',
-    backgroundColor: '#f5f5f5',
-    borderRadius: 10,
-    padding: 15,
-    marginBottom: 15,
-  },
-  sectionTitle: {
-    fontSize: 18,
-    fontWeight: 'bold',
-    marginBottom: 10,
-  },
-  typesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  typeText: {
-    backgroundColor: '#E50914',
-    color: 'white',
-    padding: 5,
-    borderRadius: 5,
-    marginRight: 10,
-    marginBottom: 5,
-    textTransform: 'capitalize',
-  },
-  abilitiesContainer: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-  },
-  abilityText: {
-    backgroundColor: '#333',
-    color: 'white',
-    padding: 5,
-    borderRadius: 5,
-    marginRight: 10,
-    marginBottom: 5,
-    textTransform: 'capitalize',
-  },
-  infoText: {
-    fontSize: 16,
-    marginBottom: 5,
   },
   favoriteButton: {
     backgroundColor: '#333',
