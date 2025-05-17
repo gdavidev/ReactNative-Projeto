@@ -1,0 +1,49 @@
+{
+  "geracoes": [
+    {
+      "geracao": 1,
+      "regiao": "Kanto",
+      "jogos": ["Red", "Blue", "Green", "Yellow"]
+    },
+    {
+      "geracao": 2,
+      "regiao": "Johto",
+      "jogos": ["Gold", "Silver", "Crystal"]
+    },
+    {
+      "geracao": 3,
+      "regiao": "Hoenn",
+      "jogos": ["Ruby", "Sapphire", "Emerald"]
+    },
+    {
+      "geracao": 4,
+      "regiao": "Sinnoh",
+      "jogos": ["Diamond", "Pearl", "Platinum"]
+    },
+    {
+      "geracao": 5,
+      "regiao": "Unova",
+      "jogos": ["Black", "White", "Black 2", "White 2"]
+    },
+    {
+      "geracao": 6,
+      "regiao": "Kalos",
+      "jogos": ["X", "Y"]
+    },
+    {
+      "geracao": 7,
+      "regiao": "Alola",
+      "jogos": ["Sun", "Moon", "Ultra Sun", "Ultra Moon"]
+    },
+    {
+      "geracao": 8,
+      "regiao": "Galar",
+      "jogos": ["Sword", "Shield"]
+    },
+    {
+      "geracao": 9,
+      "regiao": "Paldea",
+      "jogos": ["Scarlet", "Violet"]
+    }
+  ]
+}

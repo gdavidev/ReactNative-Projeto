@@ -1,0 +1,175 @@
+{
+  "geracoes": [
+    {
+      "geracao": 1,
+      "lideres_ginasio": [
+        {
+          "nome": "Brock",
+          "cidade": "Pewter City",
+          "tipo": "Pedra",
+          "pokemons": [
+            { "nome": "Geodude", "nivel": 12 },
+            { "nome": "Onix", "nivel": 14 }
+          ]
+        },
+        {
+          "nome": "Misty",
+          "cidade": "Cerulean City",
+          "tipo": "Água",
+          "pokemons": [
+            { "nome": "Staryu", "nivel": 18 },
+            { "nome": "Starmie", "nivel": 21 }
+          ]
+        },
+        {
+          "nome": "Lt. Surge",
+          "cidade": "Vermilion City",
+          "tipo": "Elétrico",
+          "pokemons": [
+            { "nome": "Voltorb", "nivel": 21 },
+            { "nome": "Pikachu", "nivel": 18 },
+            { "nome": "Raichu", "nivel": 24 }
+          ]
+        },
+        {
+          "nome": "Erika",
+          "cidade": "Celadon City",
+          "tipo": "Grama",
+          "pokemons": [
+            { "nome": "Victreebel", "nivel": 29 },
+            { "nome": "Tangela", "nivel": 24 },
+            { "nome": "Vileplume", "nivel": 29 }
+          ]
+        },
+        {
+          "nome": "Koga",
+          "cidade": "Fuchsia City",
+          "tipo": "Venenoso",
+          "pokemons": [
+            { "nome": "Koffing", "nivel": 37 },
+            { "nome": "Muk", "nivel": 39 },
+            { "nome": "Koffing", "nivel": 37 },
+            { "nome": "Weezing", "nivel": 43 }
+          ]
+        },
+        {
+          "nome": "Sabrina",
+          "cidade": "Saffron City",
+          "tipo": "Psíquico",
+          "pokemons": [
+            { "nome": "Kadabra", "nivel": 38 },
+            { "nome": "Mr. Mime", "nivel": 37 },
+            { "nome": "Venomoth", "nivel": 38 },
+            { "nome": "Alakazam", "nivel": 43 }
+          ]
+        },
+        {
+          "nome": "Blaine",
+          "cidade": "Cinnabar Island",
+          "tipo": "Fogo",
+          "pokemons": [
+            { "nome": "Growlithe", "nivel": 42 },
+            { "nome": "Ponyta", "nivel": 40 },
+            { "nome": "Rapidash", "nivel": 42 },
+            { "nome": "Arcanine", "nivel": 47 }
+          ]
+        },
+        {
+          "nome": "Giovanni",
+          "cidade": "Viridian City",
+          "tipo": "Terrestre",
+          "pokemons": [
+            { "nome": "Rhyhorn", "nivel": 45 },
+            { "nome": "Dugtrio", "nivel": 42 },
+            { "nome": "Nidoqueen", "nivel": 44 },
+            { "nome": "Nidoking", "nivel": 45 },
+            { "nome": "Rhydon", "nivel": 50 }
+          ]
+        }
+      ]
+    },
+    {
+      "geracao": 2,
+      "lideres_ginasio": [
+        {
+          "nome": "Falkner",
+          "cidade": "Violet City",
+          "tipo": "Voador",
+          "pokemons": [
+            { "nome": "Pidgey", "nivel": 7 },
+            { "nome": "Pidgeotto", "nivel": 9 }
+          ]
+        },
+        {
+          "nome": "Bugsy",
+          "cidade": "Azalea Town",
+          "tipo": "Inseto",
+          "pokemons": [
+            { "nome": "Metapod", "nivel": 14 },
+            { "nome": "Kakuna", "nivel": 14 },
+            { "nome": "Scyther", "nivel": 16 }
+          ]
+        },
+        {
+          "nome": "Whitney",
+          "cidade": "Goldenrod City",
+          "tipo": "Normal",
+          "pokemons": [
+            { "nome": "Clefairy", "nivel": 18 },
+            { "nome": "Miltank", "nivel": 20 }
+          ]
+        },
+        {
+          "nome": "Morty",
+          "cidade": "Ecruteak City",
+          "tipo": "Fantasma",
+          "pokemons": [
+            { "nome": "Gastly", "nivel": 21 },
+            { "nome": "Haunter", "nivel": 21 },
+            { "nome": "Gengar", "nivel": 25 }
+          ]
+        },
+        {
+          "nome": "Chuck",
+          "cidade": "Cianwood City",
+          "tipo": "Lutador",
+          "pokemons": [
+            { "nome": "Primeape", "nivel": 27 },
+            { "nome": "Poliwrath", "nivel": 30 }
+          ]
+        },
+        {
+          "nome": "Jasmine",
+          "cidade": "Olivine City",
+          "tipo": "Aço",
+          "pokemons": [
+            { "nome": "Magnemite", "nivel": 30 },
+            { "nome": "Magnemite", "nivel": 30 },
+            { "nome": "Steelix", "nivel": 35 }
+          ]
+        },
+        {
+          "nome": "Pryce",
+          "cidade": "Mahogany Town",
+          "tipo": "Gelo",
+          "pokemons": [
+            { "nome": "Seel", "nivel": 27 },
+            { "nome": "Dewgong", "nivel": 29 },
+            { "nome": "Piloswine", "nivel": 31 }
+          ]
+        },
+        {
+          "nome": "Clair",
+          "cidade": "Blackthorn City",
+          "tipo": "Dragão",
+          "pokemons": [
+            { "nome": "Dragonair", "nivel": 37 },
+            { "nome": "Dragonair", "nivel": 37 },
+            { "nome": "Dragonair", "nivel": 37 },
+            { "nome": "Kingdra", "nivel": 40 }
+          ]
+        }
+      ]
+    }
+  ]
+}
